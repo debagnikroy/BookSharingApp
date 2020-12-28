@@ -35,7 +35,7 @@ app.use('/api', bookRoutes);
 const port = process.env.PORT || 8001;
 
 if(process.env.NODE_ENV=== 'production'){
-    app.use(express.static('bookapp-frontend/build'));
+    app.use(express.static('client/build'));
 }
 
 app.listen(port, () => {
