@@ -27,6 +27,10 @@ exports.getTransferMarketListedBooks = (req, res) => {
                 });
             }
             let result=[];
+            if(orders[0].listedBooks==='undefined'){
+                res.json(result);
+            }
+
             for(var i=0;i<orders[0].listedBooks.length;i++){
                 //console.log(orders[0].listedBooks[i].isbn,orders[0].listedBooks[i].userId);
                 if(orders[0].listedBooks[i].userId != req.profile._id){
