@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
 import { Redirect } from 'react-router-dom';
 import {isAuthenticated} from '../auth'
-import { addBook } from '../user/ApiUser';
+import { addBook } from './ApiUser';
 import Menu from '../core/Menu'
 import Layout from '../core/Layout';
 
@@ -38,7 +38,7 @@ const AddBook=()=>{
     return(
         <React.Fragment>
             <Menu />
-            <Layout title="Add new book" description="Enter the isbn number" className="container">    
+            <Layout title="Add new book" description={`${user.name}, please enter the isbn number`} className="container">    
             <form >
         {shouldRedirect(redirect)}
           <div class="form-group"> 

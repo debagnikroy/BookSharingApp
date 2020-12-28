@@ -153,7 +153,7 @@ const Dashboard = () => {
     return (
         <React.Fragment>
             <Menu />
-            <Layout title="DashBoard" description="User Dashboard" className="container">
+            <Layout title="DashBoard" description={`Welcome ${name}`} className="container">
 
                 <center><h1 className="mt-5 mb-2">New Requests</h1></center>
                 <div className="row">
