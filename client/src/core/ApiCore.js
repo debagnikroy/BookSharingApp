@@ -37,7 +37,7 @@ export const getBookDetails2 = (isbn) => {
 };
 
 export const getTransferMarketListedBooks = (userId,token) => {    
-    return fetch(`http://localhost:8001/api/getTransferMarketListedBooks/${userId}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/getTransferMarketListedBooks/${userId}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',

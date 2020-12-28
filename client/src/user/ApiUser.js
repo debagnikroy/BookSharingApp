@@ -1,5 +1,5 @@
 export const read = (userId,token) => {
-    return fetch(`http://localhost:8000/api/user/${userId}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/user/${userId}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -17,7 +17,7 @@ export const read = (userId,token) => {
 
 
 export const update = (userId,token,user) => {
-    return fetch(`http://localhost:8000/api/user/${userId}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/user/${userId}`, {
         method: 'PUT',
         headers: {
             Accept: 'application/json',
@@ -46,7 +46,7 @@ export const updateUser=(user,next)=>{
 
 
 export const getPurchaseHistory = (userId,token) => {
-    return fetch(`http://localhost:8000/api/orders/by/user/${userId}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/orders/by/user/${userId}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -63,7 +63,7 @@ export const getPurchaseHistory = (userId,token) => {
 };
 
 export const getCurrentBooks = (userId,token) => {    
-    return fetch(`http://localhost:8001/api/user/getCurrentBooks/${userId}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/user/getCurrentBooks/${userId}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -79,7 +79,7 @@ export const getCurrentBooks = (userId,token) => {
 };
 
 export const getListedBooks = (userId,token) => {    
-    return fetch(`http://localhost:8001/api/user/getListedBooks/${userId}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/user/getListedBooks/${userId}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -95,7 +95,7 @@ export const getListedBooks = (userId,token) => {
 };
 
 export const listBook = (userId,isbn,token) => {    
-    return fetch(`http://localhost:8001/api/user/listBook/${userId}/${isbn}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/user/listBook/${userId}/${isbn}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -112,7 +112,7 @@ export const listBook = (userId,isbn,token) => {
 };
 
 export const unlistBook = (userId,isbn,token) => {    
-    return fetch(`http://localhost:8001/api/user/backFromListBook/${userId}/${isbn}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/user/backFromListBook/${userId}/${isbn}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -130,7 +130,7 @@ export const unlistBook = (userId,isbn,token) => {
 
 
 export const addBook = (userId,isbn,token) => {    
-    return fetch(`http://localhost:8001/api/addISBN/${userId}/${isbn}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/addISBN/${userId}/${isbn}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -147,7 +147,7 @@ export const addBook = (userId,isbn,token) => {
 
 
 export const deleteBook = (userId,isbn,token) => {    
-    return fetch(`http://localhost:8001/api/deleteBook/${userId}/${isbn}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/deleteBook/${userId}/${isbn}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -163,7 +163,7 @@ export const deleteBook = (userId,isbn,token) => {
 };
 
 export const borrowBook = (userId,isbn,ownerId,token) => {    
-    return fetch(`http://localhost:8001/api/borrowRequest/${userId}/${ownerId}/${isbn}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/borrowRequest/${userId}/${ownerId}/${isbn}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -179,7 +179,7 @@ export const borrowBook = (userId,isbn,ownerId,token) => {
 };
 
 export const getBorrowBookRequests = (userId,token) => {    
-    return fetch(`http://localhost:8001/api/user/getBorrowBookRequests/${userId}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/user/getBorrowBookRequests/${userId}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -196,7 +196,7 @@ export const getBorrowBookRequests = (userId,token) => {
 
 
 export const acceptBorrowRequest = (userId,isbn,ownerId,token) => {    
-    return fetch(`http://localhost:8001/api/acceptRequest/${userId}/${ownerId}/${isbn}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/acceptRequest/${userId}/${ownerId}/${isbn}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -211,7 +211,7 @@ export const acceptBorrowRequest = (userId,isbn,ownerId,token) => {
         });
 };
 export const declineBorrowRequest = (userId,isbn,ownerId,token) => {    
-    return fetch(`http://localhost:8001/api/declineRequest/${userId}/${ownerId}/${isbn}`, {
+    return fetch(`https://booksharingapp23.herokuapp.com/api/declineRequest/${userId}/${ownerId}/${isbn}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
