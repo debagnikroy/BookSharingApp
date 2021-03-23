@@ -20,8 +20,8 @@ const Market=()=>{
                 console.log(data.error);
             }
             else{
-                console.log("market",data[0].listedBooks);
-                setListedBooks(data[0].listedBooks);
+                console.log("market",data);
+                setListedBooks(data);
             }
         })
         .catch(err=>{
