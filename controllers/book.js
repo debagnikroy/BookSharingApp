@@ -32,11 +32,18 @@ exports.getTransferMarketListedBooks = (req, res) => {
             }
 
             for(var i=0;i<orders[0].listedBooks.length;i++){
-                //console.log(orders[0].listedBooks[i].isbn,orders[0].listedBooks[i].userId);
+                console.log("transfer market  ",orders[0].listedBooks[i].isbn,orders[0].listedBooks[i].userId);
+                console.log("transfer market  ",orders[0].listedBooks[i].userId,"  ",req.profile._id);
+
+                if(orders[0].listedBooks[i].userId == req.profile._id){
+                    continue;
+                }
                 if(orders[0].listedBooks[i].userId != req.profile._id){
-                    result.push(orders[i]);
+                    result.push(orders[0].listedBooks[i]);
+                    console.log("if block", orders[0].listedBooks[i]);
                 }                    
             }
+            console.log("result tm", result)
             res.json(result);
         });
 };

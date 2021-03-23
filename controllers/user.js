@@ -1,6 +1,7 @@
 const fetch=require('node-fetch');
 const User = require('../models/user');
 const Book = require('../models/books');
+const axios = require('axios');
 
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
@@ -277,9 +278,36 @@ exports.addISBN = (req,res) => {
                 error: 'User not found'
             });
         }
-        user.currentBooks.push(req.isbn);
         
-        user.save((err, updatedUser) => {
+
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${req.isbn}`)
+        .then(response => {
+            console.log(response.data['totalItems']);
+            if(response.data['totalItems'] != 0){  
+                console.log("entered")              
+                user.currentBooks.push(req.isbn);
+
+                user.save((err, updatedUser) => {
+                    if (err) {
+                        console.log('USER UPDATE ERROR', err);
+                        return res.status(400).json({
+                            error: 'User update failed'
+                        });
+                    }
+                    updatedUser.hashed_password = undefined;
+                    updatedUser.salt = undefined;
+                    res.json(updatedUser);
+                });
+            }
+            else{
+                res.json(response.data);
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        }); 
+        
+        /*user.save((err, updatedUser) => {
             if (err) {
                 console.log('USER UPDATE ERROR', err);
                 return res.status(400).json({
@@ -289,7 +317,7 @@ exports.addISBN = (req,res) => {
             updatedUser.hashed_password = undefined;
             updatedUser.salt = undefined;
             res.json(updatedUser);
-        });
+        });*/
     });
     
 };
