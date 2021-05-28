@@ -36,6 +36,12 @@ const Menu = (props) => {
                             </Link>
                         </Nav.Link>
                         <Nav.Link>
+                            <Link className="nav-link" to="/" style={isActive(props.history, "/user/searchBook")}>
+                                BookSearch{" "}
+                                {/* <sub><small className="cart-badge">{itemTotal()}</small></sub> */}
+                            </Link>
+                        </Nav.Link>
+                        <Nav.Link>
                             {isAuthenticated() && (
                                 <li className="nav-item">
                                     <span className="nav-link" onClick={() => {
