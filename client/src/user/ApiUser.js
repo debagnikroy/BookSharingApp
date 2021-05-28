@@ -225,3 +225,44 @@ export const declineBorrowRequest = (userId,isbn,ownerId,token) => {
             console.log(err);
         });
 };
+
+
+
+export const searchBook = (queryString) => {    
+    
+    queryString = queryString + "*";
+    console.log("*****************",queryString)
+    var username = 'rf007u224t';
+    var password = 'csbx2cenm0';
+    var myBody = { "from" : 0,  "size" : 15,"min_score": 0.5,
+                "query": 
+                { 
+                    "match": 
+                    { 
+                    "name": 
+                    {
+                        "query": queryString,
+                        "fuzziness": "2"
+                    }
+                    } 
+                } 
+            };
+    return fetch(`https://book-search-7278943053.us-east-1.bonsaisearch.net:443/book/name/_search`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization':    'Basic ' + btoa(`${username}:${password}`) 
+        },
+        body : JSON.stringify(myBody),
+    })
+        .then(response => {
+            var dict = response.json();
+            console.log("**********************",dict);
+            return dict;
+        })
+        .catch(err => {
+            console.log(err);
+            return {};
+        });
+};

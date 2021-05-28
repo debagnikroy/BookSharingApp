@@ -5,7 +5,8 @@ import Signup from "./user/Signup";
 import Dashboard from "./user/UserDashboard";
 import PrivateRoute from "./auth/PrivateRoute";
 import MyCard from './core/MyCard';
-import AddBook from './user/AddBook'
+import AddBook from './user/AddBook';
+import SearchBook from './user/SearchBook';
 import Market from './core/Market';
 
 
@@ -20,7 +21,8 @@ const Routes=()=>{
             <Route path="/card" exact component={MyCard} />            
             <PrivateRoute path="/user/dashboard" exact component={Dashboard} />            
             <PrivateRoute path="/transferMarket" exact component={Market} />            
-            <PrivateRoute path="/user/addBook" exact component={AddBook} />            
+            <PrivateRoute path="/user/addBook" exact component={AddBook} />
+            <PrivateRoute path="/user/searchBook" exact component={SearchBook} />            
         </Switch>
     </BrowserRouter>
     )
