@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
 import { getBookDetails, getDetails } from './ApiCore'
-import { Redirect } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
 import {isAuthenticated} from '../auth'
 import { listBook,unlistBook,deleteBook,borrowBook,declineBorrowRequest,acceptBorrowRequest } from '../user/ApiUser';
 
@@ -17,6 +17,7 @@ const MyCard = (props) => {
     let showBorrowButton=props.showBorrowButton;
     let showAcceptButton=props.acceptButton;
     let showDeclineButton=props.declineButton;
+    let showDesc=props.showDesc;
 
     const [info, setInfo] = useState({});
     const [author, setAuthor] = useState("");
@@ -236,7 +237,7 @@ const MyCard = (props) => {
                 }
                 else{
                     if(desc.length>20){
-                        desc=desc.substring(0,50)+"..."
+                        desc=desc.substring(0,100)+"..."
                         setDesc(desc);
                     }                    
                 }
@@ -271,11 +272,26 @@ const MyCard = (props) => {
             )
     }
 
-    const showViewProduct=(viewProduct)=>{
+    const showViewProduct=(viewProduct)=>{        
         if(viewProduct){
-            return <button className="btn btn-outline-warning mt-2 ml-2 mb-2">
-                View Book
-            </button> 
+
+            return (
+                <Link to={`/product/${isbn.product}`}>
+                    <button className="btn btn-outline-warning mt-2 ml-2 mb-2">
+                        View Book
+                    </button> 
+                </Link>
+                
+            )            
+        }
+        
+    }
+
+    const Desc=(hasDesc)=>{        
+        if(hasDesc){
+            return (
+                <p className="has-text-black-ter has-text-weight-normal">Description: <br /> {desc}</p>                
+            )            
         }
         
     }
@@ -330,9 +346,9 @@ const MyCard = (props) => {
             </figure>
           </div>
           <div className="card-content">
-            <p className="title is-6 has-text-primary has-text-centered is-capitalized">{title}</p>
-            <p className="title is-6 has-text-primary has-text-centered is-capitalized">{author}</p>
-            <p className="has-text-black-ter has-text-weight-normal">{desc}</p>
+            <p className="title is-6 has-text-primary has-text-centered is-capitalized">Title: {title}</p>
+            <p className="title is-6 has-text-primary has-text-centered is-capitalized">Author: {author}</p>
+            {Desc(showDesc)}
           </div>
           <span>
           {showViewProduct(viewProduct)}
