@@ -187,60 +187,86 @@ const MyCard = (props) => {
     }
 
 
+
     //init function
     const init = (isbn) => {
+        
         getBookDetails(isbn).then(data => {
             if (data.error) {
                 console.log(data.error);
             }
             else {
-                setInfo(data);
-                console.log("data",isbn,data);
-                let item_s = data.items;
-                //console.log("items",item_s);
-                // Volume info
-                let item = item_s[0].volumeInfo;
 
-                // Author
-                let author=item.authors;
-                if (typeof author === 'undefined') {
-                    setAuthor('No author');
-                }
-                else{
-                    setAuthor(item.authors[0]);
-                }
+                try{
+                    setInfo(data);
+                    console.log("data",isbn,data);
+                    let item_s = data.items;
+                    //console.log("items",item_s);
+                    // Volume info
 
-                // Image link
-                /*src={
-                    book.volumeInfo.imageLinks === undefined
-                      ? ""
-                      : `${book.volumeInfo.imageLinks.thumbnail}`
-                }*/
-                if(item.imageLinks=== undefined){
-                    setImgLink("https://in.pinterest.com/pin/478577897904782388/");                
+
+                    let item = item_s[0].volumeInfo;
+
+                    // Author
+                    let author=item.authors;
+                    if (typeof author === 'undefined') {
+                        setAuthor('No author');
+                    }
+                    else{
+                        setAuthor(item.authors[0]);
+                    }
+
+                    // Image link
+                    /*src={
+                        book.volumeInfo.imageLinks === undefined
+                            ? ""
+                            : `${book.volumeInfo.imageLinks.thumbnail}`
+                    }*/
+                    if(item.imageLinks=== undefined){
+                        setImgLink("https://in.pinterest.com/pin/478577897904782388/");                
+                    }
+                    else{
+                        setImgLink(item.imageLinks.thumbnail);                
+                    }
+                    
+                    //setImgLink(item.imageLinks.thumbnail);
+
+                    // Title
+                    setTitle(item.title);
+
+                    // Description
+                    let desc=item.description;
+                    
+
+                    if (typeof desc === 'undefined') {
+                        setDesc('No description available');
+                    }
+                    else{
+                        if(desc.length>20){
+                            desc=desc.substring(0,100)+"..."
+                            setDesc(desc);
+                        }                    
+                    }
                 }
-                else{
-                    setImgLink(item.imageLinks.thumbnail);                
+                catch(e){
+                    const queryParams = new URLSearchParams(window.location.search);
+                    
+                    const name = queryParams.get('name');
+                    var author = queryParams.get('authors');
+                    const image = queryParams.get('image');
+
+                    author=author.substring(1);
+                    author=author.slice(0,-1);
+                    console.log(image);
+
+                    setImgLink(image);
+                    setTitle(name);
+                    setAuthor(author);
+                    console.log( "name",name); // 55 test null
+                    setDesc("Book Details aren't avalable");
+                    console.log(e);
                 }
                 
-                //setImgLink(item.imageLinks.thumbnail);
-
-                // Title
-                setTitle(item.title);
-
-                // Description
-                let desc=item.description;
-                
-
-                if (typeof desc === 'undefined') {
-                    setDesc('No description available');
-                }
-                else{
-                    if(desc.length>20){
-                        desc=desc.substring(0,100)+"..."
-                        setDesc(desc);
-                    }                    
-                }
 
                 //console.log(isbn, data);
             }
@@ -290,7 +316,7 @@ const MyCard = (props) => {
     const Desc=(hasDesc)=>{        
         if(hasDesc){
             return (
-                <p className="has-text-black-ter has-text-weight-normal">Description: <br /> {desc}</p>                
+                <p className="has-text-black-ter has-text-weight-normal"><b>Description:</b> <br /> {desc}</p>                
             )            
         }
         
@@ -346,8 +372,8 @@ const MyCard = (props) => {
             </figure>
           </div>
           <div className="card-content">
-            <p className="title is-6 has-text-primary has-text-centered is-capitalized">Title: {title}</p>
-            <p className="title is-6 has-text-primary has-text-centered is-capitalized">Author: {author}</p>
+            <p className="title is-6 has-text-primary has-text-centered is-capitalized"><b>Title:</b> {title}</p>
+            <p className="title is-6 has-text-primary has-text-centered is-capitalized"><b>Author:</b> {author}</p>
             {Desc(showDesc)}
           </div>
           <span>

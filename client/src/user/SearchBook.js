@@ -5,6 +5,7 @@ import {isAuthenticated} from '../auth'
 import { addBook, searchBook } from './ApiUser';
 import Menu from '../core/Menu'
 import Layout from '../core/Layout';
+import { text } from 'body-parser';
 
 
 const AddBook=()=>{
@@ -22,12 +23,22 @@ const AddBook=()=>{
             document.getElementById("searchResult").innerHTML =''
             
             for(let book of data['hits']['hits']){   
-                var node = document.createElement("TR");
+
+                var TRnode = document.createElement("TR");
+                var eventLinks = "/product/"+book['_source']['isbn'];
+                eventLinks = eventLinks + '?name=' + book['_source']['name'];
+                eventLinks = eventLinks + '&authors=' + JSON.stringify(book['_source']['authors']);
+                eventLinks = eventLinks + '&image=' + encodeURIComponent(book['_source']['image']);
+                eventLinks = eventLinks + '&publishedDate=' + JSON.stringify(book['_source']['publishedDate']);
+                const tempDiv = document.createElement('a');
+                tempDiv.setAttribute('href', eventLinks);
+
                 var textnode = document.createTextNode(book['_source']['name']);         // Create a text node
-                node.appendChild(textnode);                              // Append the text to <li>
-                document.getElementById("searchResult").appendChild(node);
+                tempDiv.appendChild(textnode);
+                TRnode.appendChild(tempDiv);
+                document.getElementById("searchResult").appendChild(TRnode);
             }
-        })
+        })  
     }
 
     const addButton=(e)=>{
@@ -62,7 +73,7 @@ const AddBook=()=>{
               id="isbn"
               name="isbn"
               className="form-control"
-              placeholder="Enter ISBN"
+              placeholder="Enter a keyword"
               value={isbn}
               onChange={isbnHandler}
             />
@@ -72,11 +83,16 @@ const AddBook=()=>{
         
             <table>
                 {searchResult}
-                <div id='searchResult' name='searchResult'></div>
+                <div id='searchResult' name='searchResult' border-color='black' ></div>
             </table>
             
-        
+            <br/>
+            <br/>
 
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             </Layout>
         </React.Fragment>
     
